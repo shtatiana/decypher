@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>RSA decrypt</title>
+      <script>
+      
+      async function sha1() {
+        const encoder = new TextEncoder()
+        const msgUint8 = encoder.encode(document.getElementById("inp").value);                           // encode as (utf-8) Uint8Array
+        const hashBuffer = await crypto.subtle.digest('SHA-1', msgUint8);           // hash the message
+        const hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+        document.getElementById("inp").value = hashHex;
+        return hashHex;
+      }
+    </script>
   </head>
   <body>
     <form action="/decypher" enctype="multipart/form-data" method="POST">
@@ -10,5 +22,9 @@
       <input name="key" type="file" />
       <input type="submit" value="Decrypt" />
     </form>
+      
+    <h4>tatiana.shirshikova</h4>
+    <input name="inp" id="inp" />
+    <button id="bt" name="bt" onclick="sha1()">Go!</button>
   </body>
 </html>

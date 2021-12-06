@@ -49,7 +49,7 @@ const app = express();
         res.sendFile(path.join(tempPath, "/public/index.html"));
     })
 
-    .post( "/decypher",
+    .post( "/decypher/",
         upload.fields([
             {
               name: "secret",
